@@ -152,6 +152,9 @@ uint32_t* processChunk(bool** chunkBits, const uint32_t* hValues) {
 std::string Sha256(const char* input) {
 	uint64_t strBitLength = strLen(input) * CHAR_BITS_SIZE;
 	bool* bits = strToBits(input, strBitLength);
+	if (strBitLength == 0) {
+		return "";
+	}
 
 	uint64_t paddedInputSize = ((strBitLength + 64 + CHUNK_SIZE - 1) / CHUNK_SIZE) * CHUNK_SIZE;
 	bool* paddedInput = applyPreprocessingToBits(bits, strBitLength, paddedInputSize);
